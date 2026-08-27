@@ -1,17 +1,23 @@
-import java.util.Arrays;
-
 class Solution {
     public int findDuplicate(int[] nums) {
-        Arrays.sort(nums);
-        int left = 0;
-        for(int right=1; right<nums.length; right++){
-            if(nums[right]==nums[left]){
-                return nums[right];
-                
-            }
-            left++;
-        }
-        return -1;
         
+        // Phase 1: Find intersection point
+        int slow = nums[0];
+        int fast = nums[0];
+
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+
+        // Phase 2: Find the entrance of the cycle
+        int start = nums[0];
+
+        while (start != slow) {
+            start = nums[start];
+            slow = nums[slow];
+        }
+
+        return start;
     }
 }
