@@ -1,7 +1,6 @@
 class Solution {
     public int findDuplicate(int[] nums) {
         
-        // Phase 1: Find intersection point
         int slow = nums[0];
         int fast = nums[0];
 
@@ -10,14 +9,13 @@ class Solution {
             fast = nums[nums[fast]];
         } while (slow != fast);
 
-        // Phase 2: Find the entrance of the cycle
-        int start = nums[0];
+        slow = nums[0];
 
-        while (start != slow) {
-            start = nums[start];
+        while (slow != fast) {
             slow = nums[slow];
+            fast = nums[fast];
         }
 
-        return start;
+        return slow;
     }
 }
